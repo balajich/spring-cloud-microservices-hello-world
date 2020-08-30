@@ -1,4 +1,4 @@
-# Spring Cloud LoadBalancer
+# Spring Cloud Microservices Hello World Application
 In this tutorial we are going to learn how to use Spring Cloud Load Balancer for client side load balancing instead of Netflix ribbon . 
 As we are aware Netflix ribbon component is under maintainence mode we need to migrate to Spring Cloud Loadbalaner.
 
