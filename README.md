@@ -52,5 +52,6 @@ Use Eureka Service registry UI to view all the micro service instances http://lo
 - Ideally we will not care on which ports employee-api and payroll-api is running
 - Gateway discovers these applications and establishes routes
 # Next Tutorial
+https://github.com/balajich/spring-cloud-microservices-hello-world-dynamic-ports
 
  

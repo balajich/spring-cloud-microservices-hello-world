@@ -1,12 +1,12 @@
 {
 	"info": {
-		"_postman_id": "4327defe-9e5a-42f5-97f2-3001b8640d72",
+		"_postman_id": "758b7cc2-781f-45a8-a481-0b311d666ebb",
 		"name": "spring-cloud-microservices-hello-world",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
 	"item": [
 		{
-			"name": "1-Get employee details -  Employee API Server",
+			"name": "1-Get employee details -  Employee API Server Directly",
 			"request": {
 				"method": "GET",
 				"header": [],
@@ -26,7 +26,7 @@
 			"response": []
 		},
 		{
-			"name": "2-Get payroll details of employee -  Payroll API Server",
+			"name": "2-Get payroll details of employee -  Payroll API Server Directly",
 			"request": {
 				"method": "GET",
 				"header": [],
@@ -46,7 +46,7 @@
 			"response": []
 		},
 		{
-			"name": "3-Get employee details - Gateway",
+			"name": "3-Get employee details - via Gateway",
 			"request": {
 				"method": "GET",
 				"header": [],
@@ -66,7 +66,7 @@
 			"response": []
 		},
 		{
-			"name": "4-Get payroll details of employee -  Gateway",
+			"name": "4-Get payroll details of employee - via Gateway",
 			"request": {
 				"method": "GET",
 				"header": [],
