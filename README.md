@@ -1,26 +1,21 @@
 # Spring Cloud Microservices Hello World Application
-In this tutorial we are going to learn how to use Spring Cloud Load Balancer for client side load balancing instead of Netflix ribbon . 
-As we are aware Netflix ribbon component is under maintainence mode we need to migrate to Spring Cloud Loadbalaner.
-
-Requests from clients are received to Spring Cloud Gateway Component running on port 8080 , Spring Cloud Load Balancer component based on the routes 
-mentioned it forwards the requests to rest api servers. Spring Cloud Load Balancer is going to fetch restapi instances information from Eureka Registry.
-Every application (Gateway,restapi) registers it availability with Eureak registry.
+In this tutorial we are going build two microservice applications  and expose they service via gateway. Users access the services using gateway
 
 - Steps
-    - Gateway (Netty) runs on port 8080
-    - Requests on 8080 are reverse proxied (forwarded) to  rest api running on 9090 and 9091
+    - Run employee service on 9090. Where it takes employee id and returns employee name
+    - Run payroll service on 9050. Where it take employee id and returns employee salary
     - Eureka Registry Server is running on port 8761
-    - When Gateways starts up on port 8080 registers with Eureka Server
-    - When rest api servers starts on 9090 and 9091 registers with Eureka Server
-    - Spring Cloud gateway uses Spring Cloud Load Balancer and routes all the requests that are coming on 8080 in a round robin fashion to 9090 and 9091
-    - When are new rest api instance starts on 9092 it registers with Eureka and routing is dynamically enabled by Gateway 
+    - Spring Cloud Gateway (Spring Cloud load balancer) runs on port 8080
+    - When rest api(employee-api,payroll-api) servers starts on 9090 and 9050 registers with Eureka Server.
+    - Spring Cloud gateway uses Spring Cloud Load Balancer and routes all the requests that are coming on 8080 to respective application instances.
+    - When ever a new rest api instance starts it registers with Eureka and routing is dynamically enabled by Gateway 
     - New application servers can be dynamically added
     - Application servers (service urls) are maintained in Registry
     - Netflix Eureka component plays a role of registry
     - Spring Cloud Load Balancer plays a role of Client side load balancer
     - Netflix Eureka Client is included in all the application servers (services)  and Gateway
 # Source Code 
-    git clone https://github.com/balajich/reverse-proxy-spring-cloud-loadbalancer.git
+    git clone https://github.com/balajich/spring-cloud-microservices-hello-world.git
 # Video
 [![Spring Cloud LoadBalancer](https://img.youtube.com/vi/8HQR6GdtI9o/0.jpg)](https://www.youtube.com/watch?v=8HQR6GdtI9o)
 - https://youtu.be/8HQR6GdtI9o
@@ -32,16 +27,30 @@ Every application (Gateway,restapi) registers it availability with Eureak regist
 # Clean and Build
     mvn clean install
 # Running components
-- Registry: java -jar .\registry\target\registry-0.0.1-SNAPSHOT.jar
-- Gateway:  java -jar .\gateway\target\gateway-0.0.1-SNAPSHOT.jar
-- Rest API instance 1: java -jar .\restapi\target\restapi-0.0.1-SNAPSHOT.jar
-- Rest API instance 2:  java -jar '-Dserver.port=9091' .\restapi\target\restapi-0.0.1-SNAPSHOT.jar
-# Using curl to test environment
-- Access rest api via gateway:  curl http://localhost:8080/
-- Access rest api directly on instance1 : curl http://localhost:9090/
-- Access rest api directly on instance2 : curl http://localhost:9090/
-# Hints
--  If you are using Netflix ribbon for client side loading balancing set the property ** spring.cloud.loadbalancer.ribbon.enabled=false** than Spring Cloud Load Balancer will be used as ribbon automatically
-- Note only netflix ribbon is in maintainence mode , Please continue to use Eureka as registry
+- Registry: ``` java -jar .\registry\target\registry-0.0.1-SNAPSHOT.jar ```
+- Employee API: ``` java -jar .\employee-api\target\employee-api-0.0.1-SNAPSHOT.jar ```
+- Payroll API: ``` java -jar .\payroll-api\target\payroll-api-0.0.1-SNAPSHOT.jar ```
+- Gateway: ```java -jar .\gateway\target\gateway-0.0.1-SNAPSHOT.jar ``` 
 
-# Curl
+# Using curl to test environment
+**Note I am running CURL on windows, if you have any issue. Please use postman client and collection is available 
+at spring-cloud-microservices-hello-world.postman_collection.json**
+- Access employee api directly: ``` curl -s -L  http://localhost:9090/employee/100 ```
+- Access payroll api directly: ``` curl -s -L  http://localhost:9050/payroll/100 ```
+- Access employee api via gateway: ``` curl -s -L  http://localhost:8080/employee/100 ```
+- Access payroll api via gateway: ``` curl -s -L  http://localhost:8080/payroll/100 ```
+**Note: Users will not access microservices (employee-api,payroll-api) directly. This will access via gateway**
+# Scale up restapi instances
+Start two new instances of employee-api and payroll-api
+- Employee API instance 2: ``` java -jar '-Dserver.port=9091' .\employee-api\target\employee-api-0.0.1-SNAPSHOT.jar ```
+- Payroll API instance 2: ``` java -jar '-Dserver.port=9051' .\payroll-api\target\payroll-api-0.0.1-SNAPSHOT.jar ```
+# Registry UI
+Use Eureka Service registry UI to view all the micro service instances http://localhost:8761
+![EurekaServiceRegistry](EurekaServiceRegistry.png "EurekaServiceRegistry")
+# Next Steps
+- Enhance existing application to run employee-api and payroll-api on dynamic ports.
+- Ideally we will not care on which ports employee-api and payroll-api is running
+- Gateway discovers these applications and establishes routes
+# Next Tutorial
+
+ 
