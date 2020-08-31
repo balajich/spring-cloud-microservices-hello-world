@@ -47,7 +47,7 @@ Start two new instances of employee-api and payroll-api
 - Payroll API instance 2: ``` java -jar '-Dserver.port=9051' .\payroll-api\target\payroll-api-0.0.1-SNAPSHOT.jar ```
 # Registry UI
 Use Eureka Service registry UI to view all the micro service instances http://localhost:8761
-![EurekaServiceRegistry](EurekaServiceRegistry.png "EurekaServiceRegistry")
+![EurekaServiceRegistry](EurekaServiceRegistry.PNG "EurekaServiceRegistry")
 # Next Steps
 - Enhance existing application to run employee-api and payroll-api on dynamic ports.
 - Ideally we will not care on which ports employee-api and payroll-api is running
