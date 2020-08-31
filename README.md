@@ -39,7 +39,8 @@ at spring-cloud-microservices-hello-world.postman_collection.json**
 - Access payroll api directly: ``` curl -s -L  http://localhost:9050/payroll/100 ```
 - Access employee api via gateway: ``` curl -s -L  http://localhost:8080/employee/100 ```
 - Access payroll api via gateway: ``` curl -s -L  http://localhost:8080/payroll/100 ```
-**Note: Users will not access microservices (employee-api,payroll-api) directly. This will access via gateway**
+
+**Note: Users will not access microservices (employee-api,payroll-api) directly. This will always access via gateway**
 # Scale up restapi instances
 Start two new instances of employee-api and payroll-api
 - Employee API instance 2: ``` java -jar '-Dserver.port=9091' .\employee-api\target\employee-api-0.0.1-SNAPSHOT.jar ```
